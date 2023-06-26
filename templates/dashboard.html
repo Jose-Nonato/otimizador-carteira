@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css') }}">
+</head>
+<body>
+    
+<h1>DASHBOARD</h1>
+
+{% if colunas_removidas %}
+    {{ colunas_removidas }}
+{% endif %}
+
+{{ graph_1|safe }}
+
+<div class="heatmap">
+    {{ graph_3|safe }}
+
+    {{ graph_4|safe }}
+</div>
+
+<div class="bar">
+    {{ graph_2|safe }}
+
+    {{ graph_5|safe }}
+</div>
+
+<h3>Dados Gerais da Carteira</h3>
+<p>Retorno Esperado (%): {{ metrics_array[0] }}</p>
+<p>Volatibilidade (%): {{ metrics_array[1] }}</p>
+<p>Indíce Sharpe: {{ metrics_array[2] }}</p>
+
+</body>
+</html>
