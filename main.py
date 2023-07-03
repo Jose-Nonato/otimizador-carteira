@@ -18,7 +18,7 @@ def index():
 @app.route('/dashboard')
 def dashboard():
     tickers = session.get('tickers')
-    session.pop('tickers', None)
+    # session.pop('tickers', None)
 
     dados = yf.download(tickers, start='2000-01-01')['Adj Close']
     colunas_removidas = []
@@ -80,7 +80,48 @@ def dashboard():
     sharpe_ratio = "{:.2f}".format(sharpe_ratio)
     metrics_array = [expected_return, volatility, sharpe_ratio]
 
-    return render_template('dashboard.html', colunas_removidas=colunas_removidas, graph_1=graph_1, graph_2=graph_2, graph_3=graph_3, graph_4=graph_4, graph_5=graph_5, metrics_array=metrics_array)
+    retorno_esperado = dados.pct_change()
+    retorno_esperado = retorno_esperado.dropna()
+    volatibilidade = pd.DataFrame(retorno_esperado.std(), columns=['Volatibilidade'])
+    retornos_medios = pd.DataFrame(retorno_estimado)
+    retornos_medios = retornos_medios.rename({'mkt': 'Retornos'}, axis=1)
+    risco_retorno = pd.concat([retornos_medios, volatibilidade], axis=1)
+
+    fig_6 = go.Figure()
+    fig_6.add_trace(go.Scatter(
+        x=risco_retorno['Volatibilidade'],
+        y=risco_retorno['Retornos'],
+        mode='markers',
+        text=risco_retorno.index,
+        marker=dict(
+            color='black',
+            size=10,
+            line=dict(
+                color='white',
+                width=1
+            )
+        )
+    ))
+    fig_6.update_layout(
+        title={
+            'text': 'Gráfico Volatilidade x Retorno',
+            'pad': {'t': 10}
+        },
+        xaxis_title='Volatibilidade',
+        yaxis_title='Retornos'
+    )
+    graph_6 = fig_6.to_html(full_html=False)
+
+    return render_template('dashboard.html', 
+                           colunas_removidas=colunas_removidas, 
+                           graph_1=graph_1, 
+                           graph_2=graph_2, 
+                           graph_3=graph_3,
+                           graph_4=graph_4, 
+                           graph_5=graph_5, 
+                           metrics_array=metrics_array,
+                           graph_6=graph_6
+                        )
 
 if __name__ == "__main__":
     app.run(debug=True)

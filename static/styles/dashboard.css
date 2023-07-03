@@ -5,3 +5,45 @@
     margin: 0;
     font-family: 'Roboto Mono', monospace;
 }
+
+/* Header */
+header {
+    width: 100%;
+    background-color: black;
+    padding: 10px 0px;
+    margin-bottom: 50px;
+}
+
+header .img {
+    margin: 0 auto;
+    width: 30%;
+}
+/* Header */
+
+/* Main */
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+main .invalid {
+    margin: 10px 0px;
+}
+main .info {
+    text-align: center;
+    margin: 10px;
+}
+main .map {
+    margin: 0 auto;
+}
+main .maps {
+    display: flex;
+    margin: 0 auto;
+}
+main .maps .map {
+    width: 50%;
+}
+main .map {
+    width: 100%;
+    margin: 0 auto;
+}
+/* Main */
