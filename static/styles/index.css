@@ -52,17 +52,18 @@ main .forms form {
 }
 main .forms form input {
     width: 80%;
-    border: none;
-    border-bottom: 1px solid black;
-    margin: 10px auto;
+    margin: 20px auto;
     text-align: center;
-    outline:none;
-    font-size: 16pt;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    outline: none;
 }
 main .forms form button {
     border: none;
     width: 50%;
-    margin: 0 auto;
+    margin: 25px auto;
     padding: 10px;
     background-color: #505050;
     color: #FFF;
@@ -71,3 +72,14 @@ main .forms form button {
     cursor: pointer;
 }
 /* Main */
+
+/* Footer */
+footer {
+    width: 100%;
+    background-color: black;
+    color: #FFF;
+    padding: 5px 0px;
+    text-align: center;
+    font-size: 14px;
+}
+/* Footer */

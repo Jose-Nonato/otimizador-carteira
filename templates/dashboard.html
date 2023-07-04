@@ -35,10 +35,10 @@
     </div>
 
     <div class="info">
-        <h3>Dados Gerais da Carteira</h3>
-        <p>Retorno Esperado (%): {{ metrics_array[0] }}</p>
-        <p>Volatibilidade (%): {{ metrics_array[1] }}</p>
-        <p>Indíce Sharpe: {{ metrics_array[2] }}</p>
+        <h3>Performance do Portfólio</h3>
+        <p>Retorno Anual Esperado (%): {{ portfolio_performance[0] }}</p>
+        <p>Volatibilidade Anual (%): {{ portfolio_performance[1] }}</p>
+        <p>Indíce Sharpe: {{ portfolio_performance[2] }}</p>
     </div>
 
     <div class="maps">
@@ -61,10 +61,25 @@
         </div>
     </div>
 
+    <div class="info">
+        <h3>Ponto Otimo de Risco Minimo</h3>
+        <p>Retorno Anual Esperado (%): {{ optimal_point[0] }}</p>
+        <p>Volatibilidade Anual (%): {{ optimal_point[1] }}</p>
+        <p>Indíce Sharpe: {{ optimal_point[2] }}</p>
+    </div>
+
     <div class="map">
         {{ graph_6|safe }}
     </div>
+
+    <div class="frontier">
+        <img src="{{ url_for('static', filename='assets/fronteira_eficiencia.png') }}" alt="Fronteira de Eficiência">
+    </div>
 </main>
+
+<footer>
+    &copy; 2023 - Portfolio de Finanças e Investimentos.
+</footer>
 
 </body>
 </html>

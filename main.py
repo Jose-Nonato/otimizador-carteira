@@ -3,6 +3,8 @@ import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
 import pypfopt as opt
+from pypfopt import CLA, plotting
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 app.secret_key = "chavinha secreta"
@@ -78,7 +80,7 @@ def dashboard():
     expected_return = "{:.2%}".format(expected_return)
     volatility = "{:.2%}".format(volatility)
     sharpe_ratio = "{:.2f}".format(sharpe_ratio)
-    metrics_array = [expected_return, volatility, sharpe_ratio]
+    portfolio_performance = [expected_return, volatility, sharpe_ratio]
 
     retorno_esperado = dados.pct_change()
     retorno_esperado = retorno_esperado.dropna()
@@ -112,6 +114,19 @@ def dashboard():
     )
     graph_6 = fig_6.to_html(full_html=False)
 
+    cla = opt.CLA(retorno_estimado, estimativa_reducao)
+    cla.max_sharpe()
+
+    expected_return_2, volatility_2, sharpe_ratio_2 = cla.portfolio_performance(verbose=True)
+    expected_return_2 = "{:.2%}".format(expected_return_2)
+    volatility_2 = "{:.2f}".format(volatility_2)
+    sharpe_ratio_2 = "{:.2f}".format(sharpe_ratio_2)
+    optimal_point = [expected_return_2, volatility_2, sharpe_ratio_2]
+
+    plt.figure()
+    plotting.plot_efficient_frontier(cla)
+    plt.savefig("./static/assets/fronteira_eficiencia.png")
+
     return render_template('dashboard.html', 
                            colunas_removidas=colunas_removidas, 
                            graph_1=graph_1, 
@@ -119,8 +134,9 @@ def dashboard():
                            graph_3=graph_3,
                            graph_4=graph_4, 
                            graph_5=graph_5, 
-                           metrics_array=metrics_array,
-                           graph_6=graph_6
+                           portfolio_performance=portfolio_performance,
+                           graph_6=graph_6,
+                           optimal_point=optimal_point
                         )
 
 if __name__ == "__main__":

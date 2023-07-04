@@ -46,4 +46,19 @@ main .map {
     width: 100%;
     margin: 0 auto;
 }
+main .frontier {
+    width: 100%;
+    text-align: center;
+}
 /* Main */
+
+/* Footer */
+footer {
+    width: 100%;
+    background-color: black;
+    color: #FFF;
+    padding: 5px 0px;
+    text-align: center;
+    font-size: 14px;
+}
+/* Footer */
